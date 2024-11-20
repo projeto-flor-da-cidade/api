@@ -2,14 +2,19 @@ package com.flordacidade.api.flor_da_cidade_api.model;
 
 import jakarta.persistence.*;
 
+
+
+
+
 @Entity
 @Table(name = "Organiza") // Garante que o nome seja sempre em letras minúsculas
 public class Organiza {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "seq_orga") // Define o nome da coluna explicitamente no banco de dados
+    @Column(name = "seq_orga")
     private Integer seqOrga;
+
 
     @Column(name = "nome", nullable = false, length = 60) // Nome da coluna no banco de dados
     private String nome;

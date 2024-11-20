@@ -54,16 +54,35 @@ public class Principal implements CommandLineRunner {
     }
 
     private void adicionarCadastro(Scanner scanner) {
-        System.out.print("Digite o nome: ");
-        String nome = scanner.nextLine();
-        System.out.print("Digite o endereço: ");
-        String endereco = scanner.nextLine();
+        String nome = "";
+        String endereco = "";
 
+        // Loop para garantir que o nome não esteja vazio
+        while (nome.isBlank()) {
+            System.out.print("Digite o nome (não pode estar vazio): ");
+            nome = scanner.nextLine().trim(); // Remove espaços em branco no início e fim
+            if (nome.isBlank()) {
+                System.out.println("O nome é obrigatório! Tente novamente.");
+            }
+        }
+
+        // Loop para garantir que o endereço não esteja vazio
+        while (endereco.isBlank()) {
+            System.out.print("Digite o endereço (não pode estar vazio): ");
+            endereco = scanner.nextLine().trim();
+            if (endereco.isBlank()) {
+                System.out.println("O endereço é obrigatório! Tente novamente.");
+            }
+        }
+
+        // Cria o objeto Organiza com os valores válidos
         Organiza organiza = new Organiza();
         organiza.setNome(nome);
         organiza.setEndereco(endereco);
 
+        // Salva o cadastro
         organizaService.salvar(organiza);
         System.out.println("Cadastro salvo com sucesso!");
     }
+
 }
