@@ -32,21 +32,7 @@ public class ResponsavelController {
 
     @PutMapping("/{id}")
     public Responsavel atualizarResponsavel(@PathVariable Integer id, @RequestBody Responsavel responsavelAtualizado) {
-        Optional<Responsavel> responsavelExistente = responsavelService.buscarPorId(id);
-        if (responsavelExistente.isPresent()) {
-            Responsavel responsavel = responsavelExistente.get();
-            responsavel.setLogradouro(responsavelAtualizado.getLogradouro());
-            responsavel.setNumero(responsavelAtualizado.getNumero());
-            responsavel.setBairro(responsavelAtualizado.getBairro());
-            responsavel.setDocumento(responsavelAtualizado.getDocumento());
-            responsavel.setNome(responsavelAtualizado.getNome());
-            responsavel.setGenero(responsavelAtualizado.getGenero());
-            responsavel.setTelefone(responsavelAtualizado.getTelefone());
-            responsavel.setEmail(responsavelAtualizado.getEmail());
-            return responsavelService.salvarResponsavel(responsavel);
-        } else {
-            throw new RuntimeException("Responsável não encontrado com o ID: " + id);
-        }
+        return responsavelService.atualizarResponsavel(id, responsavelAtualizado);
     }
 
     @DeleteMapping("/{id}")

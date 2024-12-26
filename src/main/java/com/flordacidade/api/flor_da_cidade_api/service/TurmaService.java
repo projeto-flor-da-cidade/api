@@ -30,7 +30,7 @@ public class TurmaService {
         if (!turmaRepository.existsById(id)) {
             throw new IllegalArgumentException("Turma não encontrada.");
         }
-        turma.setId(id);
+        turma.setSeqTur(id);
         return turmaRepository.save(turma);
     }
 

@@ -23,7 +23,7 @@ public class Responsavel {
     @Column(nullable = false, length = 30)
     private String bairro;
 
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, unique = true, length = 11)
     private String documento;
 
     @Column(nullable = false, length = 30)

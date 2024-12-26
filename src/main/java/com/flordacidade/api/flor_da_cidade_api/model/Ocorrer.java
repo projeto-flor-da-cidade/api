@@ -73,7 +73,7 @@ public class Ocorrer {
     public Ocorrer(Local local, Turma turma) {
         this.local = local;
         this.turma = turma;
-        this.id = new OcorrerId(local.getId(), turma.getId());
+        this.id = new OcorrerId(local.getId(), turma.getSeqTur());
     }
 
     public OcorrerId getId() {

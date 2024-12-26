@@ -12,7 +12,7 @@ public class Turma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seq_tur")
-    private Integer id;
+    private int seqTur;
 
     @Column(name = "qtd_vag", nullable = false)
     private Integer quantidadeVagas;
@@ -40,12 +40,14 @@ public class Turma {
     }
 
     // Getters and Setters
-    public Integer getId() {
-        return id;
+
+
+    public int getSeqTur() {
+        return seqTur;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSeqTur(int seqTur) {
+        this.seqTur = seqTur;
     }
 
     public Integer getQuantidadeVagas() {
@@ -94,11 +96,11 @@ public class Turma {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turma turma = (Turma) o;
-        return Objects.equals(id, turma.id);
+        return Objects.equals(seqTur, turma.seqTur);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(seqTur);
     }
 }

@@ -10,38 +10,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("querem")
+@RequestMapping("/querem")
 public class QueremController {
 
     @Autowired
-    private QueremService service;
+    private QueremService queremService;
 
     @GetMapping
-    public ResponseEntity<List<Querem>> getAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<Querem>> findAll() {
+        return ResponseEntity.ok(queremService.findAll());
     }
 
     @GetMapping("/{seqInt}/{seqCurso}")
-    public ResponseEntity<Querem> getById(@PathVariable Integer seqInt, @PathVariable Integer seqCurso) {
+    public ResponseEntity<Querem> findById(@PathVariable int seqInt, @PathVariable int seqCurso) {
         QueremId id = new QueremId(seqInt, seqCurso);
-        return ResponseEntity.ok(service.findById(id));
+        return queremService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Querem> create(@RequestBody Querem querem) {
-        return ResponseEntity.ok(service.save(querem));
+    public ResponseEntity<Querem> save(@RequestBody Querem querem) {
+        Querem savedQuerem = queremService.save(querem);
+        return ResponseEntity.ok(savedQuerem);
     }
 
     @PutMapping("/{seqInt}/{seqCurso}")
-    public ResponseEntity<Querem> update(@PathVariable Integer seqInt, @PathVariable Integer seqCurso, @RequestBody Querem querem) {
+    public ResponseEntity<Querem> update(@PathVariable int seqInt, @PathVariable int seqCurso, @RequestBody Querem querem) {
         QueremId id = new QueremId(seqInt, seqCurso);
-        return ResponseEntity.ok(service.update(id, querem));
+        if (!id.equals(querem.getId())) {
+            return ResponseEntity.badRequest().build();
+        }
+        Querem updatedQuerem = queremService.update(querem);
+        return ResponseEntity.ok(updatedQuerem);
     }
 
     @DeleteMapping("/{seqInt}/{seqCurso}")
-    public ResponseEntity<Void> delete(@PathVariable Integer seqInt, @PathVariable Integer seqCurso) {
+    public ResponseEntity<Void> deleteById(@PathVariable int seqInt, @PathVariable int seqCurso) {
         QueremId id = new QueremId(seqInt, seqCurso);
-        service.deleteById(id);
+        queremService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -5,7 +5,7 @@ package com.flordacidade.api.flor_da_cidade_api.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id

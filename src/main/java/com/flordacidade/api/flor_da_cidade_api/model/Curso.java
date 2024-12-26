@@ -10,7 +10,7 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seq_curso")
-    private Integer id;
+    private int seqCurso;
 
     @Column(name = "nome_curso", nullable = false, length = 30)
     private String nomeCurso;
@@ -34,12 +34,14 @@ public class Curso {
     }
 
     // Getters and Setters
-    public Integer getId() {
-        return id;
+
+
+    public int getSeqCurso() {
+        return seqCurso;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSeqCurso(int seqCurso) {
+        this.seqCurso = seqCurso;
     }
 
     public String getNomeCurso() {
@@ -80,11 +82,11 @@ public class Curso {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Curso curso = (Curso) o;
-        return Objects.equals(id, curso.id);
+        return Objects.equals(seqCurso, curso.seqCurso);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(seqCurso);
     }
 }
