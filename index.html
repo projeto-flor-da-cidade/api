@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Estático</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    #mapa {
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #555;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      text-align: center;
+      color: #555;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin: 20px auto;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mapa Estático com Google Maps</h1>
+
+  <!-- Exibe o mapa -->
+  <img id="mapa" src="" alt="Mapa Estático">
+
+  <h2>Adicionar Marcação</h2>
+  <form id="marcadorForm">
+    <label for="latitude">Latitude:</label>
+    <input type="text" id="latitude" name="latitude" placeholder="Ex: -23.5505" required>
+
+    <label for="longitude">Longitude:</label>
+    <input type="text" id="longitude" name="longitude" placeholder="Ex: -46.6333" required>
+
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <script>
+    // Função para atualizar o mapa
+    async function atualizarMapa() {
+      const response = await fetch('/marcacoes');
+      const marcadores = await response.json();
+      const marcadorString = marcadores.join('|');
+      const mapaResponse = await fetch(`/mapa-estatico?marcadores=${encodeURIComponent(marcadorString)}`);
+      const mapaUrl = await mapaResponse.text();
+      document.getElementById('mapa').src = mapaUrl;
+    }
+
+    // Adicionar marcador via POST
+    document.getElementById('marcadorForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const lat = document.getElementById('latitude').value;
+      const lng = document.getElementById('longitude').value;
+      await fetch(`/marcacoes?lat=${lat}&lng=${lng}`, { method: 'POST' });
+      atualizarMapa();
+    });
+
+    // Atualiza o mapa ao carregar a página
+    atualizarMapa();
+  </script>
+</body>
+</html>
