@@ -1,10 +1,11 @@
-package com.flordacidade.api.flor_da_cidade_api;
+package flordacidade.Projeto_SEAU;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlorDaCidadeApiApplicationTests {
+class
+ProjetoSEAUTests {
 
 	@Test
 	void contextLoads() {

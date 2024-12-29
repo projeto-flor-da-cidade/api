@@ -1,0 +1,20 @@
+version: '3.8'  # Define a versão do Compose.
+
+services:
+  mysqldb:
+    image: mysql:8.0.20 # Especifique aqui a imagem do MySQL, por exemplo, 'mysql:latest' ou o número da versão que esteja usando.
+    container_name: projeto_seau # Dê um nome único ao container, como 'meu-mysql'.
+    restart: always # Defina a política de reinício, por exemplo, 'always' para reiniciar sempre que parar.
+    environment: # Variáveis de ambiente para configurar o MySQL.
+      - MYSQL_DATABASE= projeto_seau # Nome do banco de dados inicial a ser criado.
+      - MYSQL_ROOT_PASSWORD= florWD@2024! # Senha do usuário root (obrigatório).
+      - MYSQL_USER= flor_user # Nome de um usuário adicional do banco.
+      - MYSQL_PASSWORD= florWD@2024! # Senha para o usuário adicional.
+    ports:
+      - '3307:3306' # Mapeamento de portas (host:container). Alterar se necessário.
+    volumes:
+      - mysql-data:/var/lib/mysql  # Define um volume para persistir os dados do banco.
+
+volumes:
+  mysql-data:
+    driver: local # O driver local armazena os dados no host. Pode ser alterado dependendo do ambiente.
