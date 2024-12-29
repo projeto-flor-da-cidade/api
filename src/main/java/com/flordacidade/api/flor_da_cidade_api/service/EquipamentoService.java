@@ -27,29 +27,33 @@ public class EquipamentoService {
     }
 
     public Optional<Equipamento> atualizar(int id, Equipamento equipamentoAtualizado) {
-        return equipamentoRepository.findById(id)
-                .map(equipamento -> {
-                    equipamento.setLogradouro(equipamentoAtualizado.getLogradouro());
-                    equipamento.setNumero(equipamentoAtualizado.getNumero());
-                    equipamento.setCompl(equipamentoAtualizado.getCompl());
-                    equipamento.setValidacao(equipamentoAtualizado.getValidacao());
-                    equipamento.setDatSol(equipamentoAtualizado.getDatSol());
-                    equipamento.setNome(equipamentoAtualizado.getNome());
-                    equipamento.setObserv(equipamentoAtualizado.getObserv());
-                    equipamento.setQtdBancas(equipamentoAtualizado.getQtdBancas());
-                    equipamento.setDatVal(equipamentoAtualizado.getDatVal());
-                    equipamento.setHorario(equipamentoAtualizado.getHorario());
-                    equipamento.setQtdVisitas(equipamentoAtualizado.getQtdVisitas());
-                    equipamento.setTipoEqu(equipamentoAtualizado.getTipoEqu());
-                    equipamento.setResponsavel(equipamentoAtualizado.getResponsavel());
-                    return equipamentoRepository.save(equipamento);
-                });
+        return equipamentoRepository.findById(id).map(equipamento -> {
+            equipamento.setLogradouro(equipamentoAtualizado.getLogradouro());
+            equipamento.setNumero(equipamentoAtualizado.getNumero());
+            equipamento.setCompl(equipamentoAtualizado.getCompl());
+            equipamento.setValidacao(equipamentoAtualizado.getValidacao());
+            equipamento.setDatSol(equipamentoAtualizado.getDatSol());
+            equipamento.setNome(equipamentoAtualizado.getNome());
+            equipamento.setObserv(equipamentoAtualizado.getObserv());
+            equipamento.setQtdBancas(equipamentoAtualizado.getQtdBancas());
+            equipamento.setDatVal(equipamentoAtualizado.getDatVal());
+            equipamento.setHorario(equipamentoAtualizado.getHorario());
+            equipamento.setQtdVisitas(equipamentoAtualizado.getQtdVisitas());
+            equipamento.setTipoEqu(equipamentoAtualizado.getTipoEqu());
+            equipamento.setResponsavel(equipamentoAtualizado.getResponsavel());
+            return equipamentoRepository.save(equipamento);
+        });
     }
 
     public boolean deletar(int id) {
-        return equipamentoRepository.findById(id).map(equipamento -> {
-            equipamentoRepository.delete(equipamento);
+        if (equipamentoRepository.existsById(id)) {
+            equipamentoRepository.deleteById(id);
             return true;
-        }).orElse(false);
+        }
+        return false;
+    }
+
+    public List<Equipamento> buscarPorCpfResponsavel(String cpf) {
+        return equipamentoRepository.findByResponsavelCpf(cpf);
     }
 }

@@ -24,7 +24,7 @@ public class ResponsavelService {
     }
 
     public Responsavel salvarResponsavel(Responsavel responsavel) {
-        if (!CPFValidator.isValidCPF(responsavel.getDocumento())) {
+        if (!CPFValidator.isValidCPF(responsavel.getCpf())) {
             throw new IllegalArgumentException("CPF inválido");
         }
         return responsavelRepository.save(responsavel);
@@ -38,6 +38,7 @@ public class ResponsavelService {
             responsavel.setNumero(responsavelAtualizado.getNumero());
             responsavel.setBairro(responsavelAtualizado.getBairro());
             responsavel.setDocumento(responsavelAtualizado.getDocumento());
+            responsavel.setCpf(responsavelAtualizado.getCpf());
             responsavel.setNome(responsavelAtualizado.getNome());
             responsavel.setGenero(responsavelAtualizado.getGenero());
             responsavel.setTelefone(responsavelAtualizado.getTelefone());

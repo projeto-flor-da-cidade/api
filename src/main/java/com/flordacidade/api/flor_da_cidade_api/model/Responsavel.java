@@ -2,10 +2,6 @@ package com.flordacidade.api.flor_da_cidade_api.model;
 
 import jakarta.persistence.*;
 
-
-
-
-
 @Entity
 @Table(name = "responsavel")
 public class Responsavel {
@@ -23,8 +19,11 @@ public class Responsavel {
     @Column(nullable = false, length = 30)
     private String bairro;
 
-    @Column(nullable = false, unique = true, length = 11)
+    @Column(nullable = false, unique = true, length = 10)
     private String documento;
+
+    @Column(nullable = false, unique = true, length = 11)
+    private String cpf;
 
     @Column(nullable = false, length = 30)
     private String nome;
@@ -77,6 +76,14 @@ public class Responsavel {
 
     public void setDocumento(String documento) {
         this.documento = documento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNome() {

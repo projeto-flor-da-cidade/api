@@ -48,4 +48,13 @@ public class EquipamentoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/responsavel/{cpf}")
+    public ResponseEntity<List<Equipamento>> buscarPorCpfResponsavel(@PathVariable String cpf) {
+        List<Equipamento> equipamentos = equipamentoService.buscarPorCpfResponsavel(cpf);
+        if (equipamentos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(equipamentos);
+    }
 }
