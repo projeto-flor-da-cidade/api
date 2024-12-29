@@ -21,7 +21,9 @@ public class EquipamentoModel {
 
     private Integer qtdBancas;
 
-    private Integer idResp;
+    @ManyToOne
+    @JoinColumn(name = "Id_resp", nullable = false)
+    private ResponsavelModel responsavel;
 
     // Getters e Setters
 
@@ -65,12 +67,12 @@ public class EquipamentoModel {
         this.qtdBancas = qtdBancas;
     }
 
-    public Integer getIdResp() {
-        return idResp;
+    public ResponsavelModel getResponsavel() {
+        return responsavel;
     }
 
-    public void setIdResp(Integer idResp) {
-        this.idResp = idResp;
+    public void setResponsavel(ResponsavelModel responsavel) {
+        this.responsavel = responsavel;
     }
 
 }

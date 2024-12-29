@@ -10,9 +10,9 @@ public class ResponsavelModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idResp;
+    private Long Id_resp;
 
-    @Column(length = 60)
+    @Column(length = 100)
     private String logradouro;
 
     @Column(length = 10)
@@ -36,11 +36,11 @@ public class ResponsavelModel {
     // Getters e Setters
 
     public Long getIdResp() {
-        return idResp;
+        return Id_resp;
     }
 
     public void setIdResp(Long idResp) {
-        this.idResp = idResp;
+        this.Id_resp = idResp;
     }
 
     public String getLogradouro() {
