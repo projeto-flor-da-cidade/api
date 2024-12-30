@@ -3,6 +3,8 @@ package com.flordacidade.api.flor_da_cidade_api.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.sql.Time;
+
 @Entity
 @Table(name = "equipamento")
 public class EquipamentoModel {
@@ -19,10 +21,13 @@ public class EquipamentoModel {
     @Size(max = 120)
     private String observ;
 
+    private String logradouro;
+
     private Integer qtdBancas;
 
     private Integer idResp;
 
+    private Time Horario;
     // Getters e Setters
 
     public Integer getIdEqui() {
@@ -73,4 +78,19 @@ public class EquipamentoModel {
         this.idResp = idResp;
     }
 
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public Time getHorario() {
+        return Horario;
+    }
+
+    public void setHorario(Time horario) {
+        this.Horario = horario;
+    }
 }
