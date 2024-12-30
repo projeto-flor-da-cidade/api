@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "Equipamento")
+@Table(name = "equipamento")
 public class EquipamentoModel {
 
     @Id
@@ -21,9 +21,7 @@ public class EquipamentoModel {
 
     private Integer qtdBancas;
 
-    @ManyToOne
-    @JoinColumn(name = "Id_resp", nullable = false)
-    private ResponsavelModel responsavel;
+    private Integer idResp;
 
     // Getters e Setters
 
@@ -67,12 +65,12 @@ public class EquipamentoModel {
         this.qtdBancas = qtdBancas;
     }
 
-    public ResponsavelModel getResponsavel() {
-        return responsavel;
+    public Integer getIdResp() {
+        return idResp;
     }
 
-    public void setResponsavel(ResponsavelModel responsavel) {
-        this.responsavel = responsavel;
+    public void setIdResp(Integer idResp) {
+        this.idResp = idResp;
     }
 
 }

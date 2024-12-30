@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/responsavel")
@@ -49,5 +52,19 @@ public class ResponsavelController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/listar-nomes-ids")
+    public ResponseEntity<List<Map<String, Object>>> listarNomesIds() {
+        List<Map<String, Object>> responsaveis = service.listarTodos()
+                .stream()
+                .map(responsavel -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", responsavel.getIdResp());
+                    map.put("nome", responsavel.getNome());
+                    return map;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responsaveis);
     }
 }
