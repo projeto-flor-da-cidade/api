@@ -17,29 +17,34 @@ public class ResponsavelService {
 
     public boolean isCpfValid(String cpf) {
         cpf = cpf.replaceAll("[^\\d]", "");
+
+        // Verifica se o CPF tem 11 caracteres e não é uma sequência repetitiva
         if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}"))
             return false;
 
-        try {
-            int sum = 0;
-            for (int i = 0; i < 9; i++)
-                sum += (cpf.charAt(i) - '0') * (10 - i);
-            int firstDigit = 11 - (sum % 11);
-            if (firstDigit >= 10)
-                firstDigit = 0;
+        int[] weightFirst = {10, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] weightSecond = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
-            sum = 0;
-            for (int i = 0; i < 10; i++)
-                sum += (cpf.charAt(i) - '0') * (11 - i);
-            int secondDigit = 11 - (sum % 11);
-            if (secondDigit >= 10)
-                secondDigit = 0;
-
-            return cpf.charAt(9) - '0' == firstDigit && cpf.charAt(10) - '0' == secondDigit;
-        } catch (InputMismatchException e) {
-            return false;
+        // Cálculo do primeiro dígito verificador
+        int sumFirst = 0;
+        for (int i = 0; i < 9; i++) {
+            sumFirst += (cpf.charAt(i) - '0') * weightFirst[i];
         }
+        int firstDigit = 11 - (sumFirst % 11);
+        if (firstDigit >= 10) firstDigit = 0;
+
+        // Cálculo do segundo dígito verificador
+        int sumSecond = 0;
+        for (int i = 0; i < 10; i++) {
+            sumSecond += (cpf.charAt(i) - '0') * weightSecond[i];
+        }
+        int secondDigit = 11 - (sumSecond % 11);
+        if (secondDigit >= 10) secondDigit = 0;
+
+        // Compara os dígitos calculados com os dígitos fornecidos
+        return cpf.charAt(9) - '0' == firstDigit && cpf.charAt(10) - '0' == secondDigit;
     }
+
 
     public ResponsavelModel saveResponsavel(ResponsavelModel responsavel) {
         if (!isCpfValid(responsavel.getCpf())) {
